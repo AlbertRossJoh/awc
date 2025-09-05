@@ -15,7 +15,7 @@ class Program
             .AddFlag(FileFlag, FlagKind.Value, "The file which you want to read")
             .AddFlag(UniqueCountFlag, FlagKind.Mode, "Toggle if you want the count of unique words")
             .AddFlag(WordCountFlag, FlagKind.Mode, "Toggle if you want the count of words")
-            .AddFlag(UniqueWords, FlagKind.Mode, "Toggle if you want all the unique words")
+            .AddFlag(UniqueWords, FlagKind.Mode, "Toggle if you want all the unique words, can be combined with -wc for counts of each word")
             .Build();
 
     private static void Main(string[] args)
@@ -41,6 +41,14 @@ class Program
             foreach (var wordCount in wordsWithCount)
             {
                 Console.WriteLine($"{wordCount.Value}: {wordCount.Key}");
+            }
+        }
+        else if (Parser.FlagExists(UniqueWords))
+        {
+            var uniqueWords = trie.GetAllWords();
+            foreach (var word in uniqueWords)
+            {
+                Console.WriteLine(word);
             }
         }
         else if (Parser.FlagExists(WordCountFlag))
