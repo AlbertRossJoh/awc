@@ -1,9 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using awc;
 using awc.FlagParser;
+using awc.Interfaces;
 using awc.Trie;
 
-class Program
+internal static class Program
 {
     private const string FileFlag = "--file";
     private const string UniqueCountFlag = "--unique-count";
@@ -24,20 +26,20 @@ class Program
 
         var filePath = Parser.GetValueByFullFlag(FileFlag);
 
-        Trie trie;
+        IWordCounter wordCounter = new DictionaryWordCounter();
         
         if (!string.IsNullOrEmpty(filePath))
         {
-            trie = ReadFromFile(filePath);
+            wordCounter = ReadFromFile(wordCounter, filePath);
         }
         else
         {
-            trie = ReadFromStdin();
+            wordCounter = ReadFromStdin(wordCounter);
         }
 
         if (Parser.FlagExists(UniqueWords) && (Parser.FlagExists(WordCountFlag) || Parser.FlagExists(UniqueCountFlag)))
         {
-            var wordsWithCount = trie.GetAllWordsWithCounts();
+            var wordsWithCount = wordCounter.GetAllWordsWithCounts();
             foreach (var wordCount in wordsWithCount)
             {
                 Console.WriteLine($"{wordCount.Value}: {wordCount.Key}");
@@ -45,7 +47,7 @@ class Program
         }
         else if (Parser.FlagExists(UniqueWords))
         {
-            var uniqueWords = trie.GetAllWords();
+            var uniqueWords = wordCounter.GetAllWords();
             foreach (var word in uniqueWords)
             {
                 Console.WriteLine(word);
@@ -53,24 +55,24 @@ class Program
         }
         else if (Parser.FlagExists(WordCountFlag))
         {
-            Console.WriteLine(trie.Count());
+            Console.WriteLine(wordCounter.Count());
         }
         else if (Parser.FlagExists(UniqueCountFlag))
         {
-            Console.WriteLine(trie.CountUnique());
+            Console.WriteLine(wordCounter.CountUnique());
         }
     }
 
-    private static Trie ReadFromFile(string filePath)
+    private static IWordCounter ReadFromFile(IWordCounter wordCounter, string filePath)
     {
         using var reader = new StreamReader(filePath);
-        return Trie.FromStream(reader);
+        return wordCounter.PopulateFromStream(reader);
     }
 
-    private static Trie ReadFromStdin()
+    private static IWordCounter ReadFromStdin(IWordCounter wordCounter)
     {
         using var stdIn = Console.OpenStandardInput();
         using var reader = new StreamReader(stdIn);
-        return Trie.FromStream(reader);
+        return wordCounter.PopulateFromStream(reader);
     }
 }
