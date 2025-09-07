@@ -1,3 +1,3 @@
 namespace awc.FlagParser;
 
-public record FlagConfig(string Flag, FlagKind Kind, string? HelpText = null);
+public record FlagConfig(string Flag, FlagKind Kind, string? Usage = null);

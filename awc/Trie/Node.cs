@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using awc.Trie.Interfaces;
 
 namespace awc.Trie;

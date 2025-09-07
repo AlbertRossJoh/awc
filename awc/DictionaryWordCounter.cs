@@ -12,11 +12,12 @@ public class DictionaryWordCounter: WordCounterBase
     public override IWordCounter Insert(string word)
     {
         if (ContainsPunctuation(word) || ContainsWhitespace(word)) throw new ArgumentException("word contains punctuation or whitespace, when inserting it should be a single word with no spaces nor punctuation");
-        if (_wordCount.ContainsKey(word))
+        
+        if (!_wordCount.TryAdd(word, 1))
         {
             _wordCount[word]++;
         }
-        _wordCount[word] = 1;
+
         return this;
     }
     

@@ -56,7 +56,7 @@ public class FlagParser(Dictionary<string, FlagConfig> flagConfigs)
         foreach (var (_, config) in flagConfigs.DistinctBy(x => x.Value.Flag))
         {
             var shortFlag = FlagHelpers.FullFlagToShortFlag(config.Flag);
-            if (config.Flag != "--help") Console.WriteLine($"{config.Flag}, {shortFlag} : {config.HelpText}");
+            if (config.Flag != "--help") Console.WriteLine($"{config.Flag}, {shortFlag} : {config.Usage}");
         }
     }
 }

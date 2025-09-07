@@ -30,7 +30,7 @@ public interface IWordCounter
     /// <summary>
     /// Counts all words inserted into the word counter
     /// </summary>
-    /// <returns>The amount of words inserted</returns>
+    /// <returns>The number of words inserted</returns>
     public int Count();
     
     /// <summary>
