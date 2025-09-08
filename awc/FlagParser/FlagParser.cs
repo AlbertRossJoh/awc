@@ -19,7 +19,7 @@ public class FlagParser(Dictionary<string, FlagConfig> flagConfigs)
                 case FlagKind.Value when i + 1 >= args.Length:
                     throw new ArgumentException($"Flag {arg} expected to have a value");
                 case FlagKind.Mode:
-                    if (arg == "--help" || arg == "-h")
+                    if (arg is "--help" or "-h")
                     {
                         PrintHelp();
                         Environment.Exit(0);
