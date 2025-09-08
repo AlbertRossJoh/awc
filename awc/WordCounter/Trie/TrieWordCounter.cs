@@ -1,8 +1,9 @@
 using System.Text;
 using awc.Interfaces;
+using awc.Trie;
 using awc.Trie.Interfaces;
 
-namespace awc.Trie;
+namespace awc.WordCounter.Trie;
 
 public class TrieWordCounter : WordCounterBase
 {
