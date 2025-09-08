@@ -28,10 +28,10 @@ public class FlagParser(Dictionary<string, FlagConfig> flagConfigs)
                     continue;
                 case FlagKind.Value:
                     var potentialValue = args[i + 1];
-                    if (!string.IsNullOrEmpty(potentialValue) && !potentialValue.StartsWith('-'))
-                        _arguments.Add(arg, potentialValue);
+                    if (string.IsNullOrEmpty(potentialValue))
+                        throw new ArgumentException($"Flag {arg} expected to have a value");
+                    _arguments.Add(arg, potentialValue);
                     break;
-                    
             }
             i++;
         }    

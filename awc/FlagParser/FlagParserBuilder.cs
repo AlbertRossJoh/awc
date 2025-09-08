@@ -12,15 +12,9 @@ public class FlagParserBuilder
         return this;
     }
 
-    private void AddHelpFlag()
-    {
-        _config.Add("-h", new FlagConfig("--help", FlagKind.Mode));
-        _config.Add("--help", new FlagConfig("--help", FlagKind.Mode));
-    }
-
     public FlagParser Build()
     {
-        AddHelpFlag();
+        AddFlag("--help", FlagKind.Mode);
         return new FlagParser(_config);
     }
 }
