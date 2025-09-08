@@ -7,8 +7,6 @@ public class DictionaryWordCounter: WordCounterBase
 {
     private readonly Dictionary<string, int> _wordCount = new ();
 
-
-    /// <inheritdoc cref="IWordCounter.Insert"/> 
     public override IWordCounter Insert(string word)
     {
         if (ContainsPunctuation(word) || ContainsWhitespace(word)) throw new ArgumentException("word contains punctuation or whitespace, when inserting it should be a single word with no spaces nor punctuation");

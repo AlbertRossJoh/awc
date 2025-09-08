@@ -25,12 +25,7 @@ public abstract class WordCounterBase: IWordCounter
         while (c != -1)
         {
             var asChar = (char)c;
-            //if (char.IsNumber(asChar))
-            //{
-            //    word.Clear();
-            //    continue;
-            //}
-            
+           
             if (char.IsWhiteSpace(asChar))
             {
                 if (word.Length > 0)

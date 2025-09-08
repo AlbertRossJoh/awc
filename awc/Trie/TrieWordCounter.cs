@@ -4,7 +4,6 @@ using awc.Trie.Interfaces;
 
 namespace awc.Trie;
 
-/// <inheritdoc cref="IWordCounter"/>
 public class TrieWordCounter : WordCounterBase
 {
     private readonly INode _root = new Node(' ');
