@@ -90,6 +90,22 @@ public class WordCounterTests
         Assert.Single(words);       
         Assert.Equal([new KeyValuePair<string, int>("hello", 1)], words);       
     }
+    
+    [Theory]
+    [MemberData(nameof(WordCounters))]
+    public void WordCounter_InsertSingleWithWhitespace_Throws(IWordCounter wordCounter)
+    {
+        // Assert
+        Assert.Throws<ArgumentException>(() => wordCounter.Insert("hello you"));
+    }
+    
+    [Theory]
+    [MemberData(nameof(WordCounters))]
+    public void WordCounter_InsertSingleWithPunctuation_Throws(IWordCounter wordCounter)
+    {
+        // Assert
+        Assert.Throws<ArgumentException>(() => wordCounter.Insert("hello.you"));
+    }
 
     public static IEnumerable<object[]> WordCounters()
     {

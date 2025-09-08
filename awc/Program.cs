@@ -3,7 +3,6 @@
 using awc;
 using awc.FlagParser;
 using awc.Interfaces;
-using awc.Trie;
 using awc.WordCounter.Trie;
 
 internal static class Program
