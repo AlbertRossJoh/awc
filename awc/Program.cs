@@ -13,33 +13,45 @@ internal static class Program
     private const string UniqueWords = "--unique-words";
     private const string UseTrie = "--trie";
     
-    private static readonly FlagParser Parser = 
-        new FlagParserBuilder()
-            .AddFlag(FileFlag, FlagKind.Value, "The file which you want to read")
-            .AddFlag(UniqueCountFlag, FlagKind.Mode, "Toggle if you want the count of unique words")
-            .AddFlag(WordCountFlag, FlagKind.Mode, "Toggle if you want the count of words")
-            .AddFlag(UniqueWords, FlagKind.Mode, "Toggle if you want all the unique words, can be combined with -wc or -uc for counts of each word")
-            .AddFlag(UseTrie, FlagKind.Mode, "Toggle if you want to use the trie implementation")
-            .Build();
-
     private static void Main(string[] args)
     {
-        Parser.ParseArgs(args);
+        try
+        {
+            var parser = 
+                new FlagParserBuilder()
+                    .AddFlag(FileFlag, FlagKind.Value, "The file which you want to read")
+                    .AddFlag(UniqueCountFlag, FlagKind.Mode, "Toggle if you want the count of unique words")
+                    .AddFlag(WordCountFlag, FlagKind.Mode, "Toggle if you want the count of words")
+                    .AddFlag(UniqueWords, FlagKind.Mode, "Toggle if you want all the unique words, can be combined with -wc or -uc for counts of each word")
+                    .AddFlag(UseTrie, FlagKind.Mode, "Toggle if you want to use the trie implementation")
+                    .Build();
+            Run(args, parser);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            Environment.Exit(1);
+        }
+    }
 
-        var filePath = Parser.GetValueByFullFlag(FileFlag);
+    private static void Run(string[] args, FlagParser parser)
+    {
+        parser.ParseArgs(args);
+
+        var filePath = parser.GetValueByFullFlag(FileFlag);
 
         IWordCounter wordCounter = new DictionaryWordCounter();
         
-        if (Parser.FlagExists(UseTrie)) wordCounter = new TrieWordCounter();
+        if (parser.FlagExists(UseTrie)) wordCounter = new TrieWordCounter();
 
-        if (Parser.FlagExists(FileFlag) && (string.IsNullOrEmpty(filePath) || string.IsNullOrWhiteSpace(filePath)))
+        if (parser.FlagExists(FileFlag) && (string.IsNullOrEmpty(filePath) || string.IsNullOrWhiteSpace(filePath)))
         {
             throw new ArgumentException("Expected valid file path");
         }
         
-        wordCounter = Parser.FlagExists(FileFlag) ? ReadFromFile(wordCounter, filePath!) : ReadFromStdin(wordCounter);
+        wordCounter = parser.FlagExists(FileFlag) ? ReadFromFile(wordCounter, filePath!) : ReadFromStdin(wordCounter);
 
-        if (Parser.FlagExists(UniqueWords) && (Parser.FlagExists(WordCountFlag) || Parser.FlagExists(UniqueCountFlag)))
+        if (parser.FlagExists(UniqueWords) && (parser.FlagExists(WordCountFlag) || parser.FlagExists(UniqueCountFlag)))
         {
             var wordsWithCount = wordCounter.GetAllWordsWithCounts();
             foreach (var wordCount in wordsWithCount)
@@ -47,7 +59,7 @@ internal static class Program
                 Console.WriteLine($"{wordCount.Value}: {wordCount.Key}");
             }
         }
-        else if (Parser.FlagExists(UniqueWords))
+        else if (parser.FlagExists(UniqueWords))
         {
             var uniqueWords = wordCounter.GetAllWords();
             foreach (var word in uniqueWords)
@@ -55,11 +67,11 @@ internal static class Program
                 Console.WriteLine(word);
             }
         }
-        else if (Parser.FlagExists(WordCountFlag))
+        else if (parser.FlagExists(WordCountFlag))
         {
             Console.WriteLine(wordCounter.Count());
         }
-        else if (Parser.FlagExists(UniqueCountFlag))
+        else if (parser.FlagExists(UniqueCountFlag))
         {
             Console.WriteLine(wordCounter.CountUnique());
         }
