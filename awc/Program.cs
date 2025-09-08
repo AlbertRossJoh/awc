@@ -19,7 +19,7 @@ internal static class Program
             .AddFlag(UniqueCountFlag, FlagKind.Mode, "Toggle if you want the count of unique words")
             .AddFlag(WordCountFlag, FlagKind.Mode, "Toggle if you want the count of words")
             .AddFlag(UniqueWords, FlagKind.Mode, "Toggle if you want all the unique words, can be combined with -wc or -uc for counts of each word")
-            .AddFlag(UseTrie, FlagKind.Mode, "Toggle if you want to use the trie implementation, this is useful if ")
+            .AddFlag(UseTrie, FlagKind.Mode, "Toggle if you want to use the trie implementation")
             .Build();
 
     private static void Main(string[] args)
