@@ -1,4 +1,4 @@
-namespace awc.Trie.Interfaces;
+namespace awc.WordCounter.Trie.Interfaces;
 
 internal interface INode
 {

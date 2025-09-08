@@ -1,5 +1,5 @@
-using awc;
-using awc.Interfaces;
+using awc.WordCounter;
+using awc.WordCounter.Dictionary;
 using awc.WordCounter.Trie;
 
 namespace AwcTests;

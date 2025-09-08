@@ -1,6 +1,6 @@
-using awc.Trie.Interfaces;
+using awc.WordCounter.Trie.Interfaces;
 
-namespace awc.Trie;
+namespace awc.WordCounter.Trie;
 
 internal class Node(char letter) : INode
 {

@@ -1,4 +1,4 @@
-namespace awc.Interfaces;
+namespace awc.WordCounter;
 
 public interface IWordCounter
 {

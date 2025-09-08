@@ -1,7 +1,6 @@
 using System.Text;
-using awc.Interfaces;
 
-namespace awc;
+namespace awc.WordCounter;
 
 public abstract class WordCounterBase: IWordCounter
 {

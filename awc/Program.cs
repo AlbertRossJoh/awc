@@ -1,9 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using awc;
-using awc.FlagParser;
-using awc.Interfaces;
+﻿using awc.FlagParser;
+using awc.WordCounter;
+using awc.WordCounter.Dictionary;
 using awc.WordCounter.Trie;
+
+namespace awc;
 
 internal static class Program
 {
@@ -34,7 +34,7 @@ internal static class Program
         }
     }
 
-    private static void Run(string[] args, FlagParser parser)
+    private static void Run(string[] args, FlagParser.FlagParser parser)
     {
         parser.ParseArgs(args);
 

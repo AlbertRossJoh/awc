@@ -1,7 +1,5 @@
 using System.Text;
-using awc.Interfaces;
-using awc.Trie;
-using awc.Trie.Interfaces;
+using awc.WordCounter.Trie.Interfaces;
 
 namespace awc.WordCounter.Trie;
 

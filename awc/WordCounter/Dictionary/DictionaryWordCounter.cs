@@ -1,7 +1,4 @@
-using System.Text;
-using awc.Interfaces;
-
-namespace awc;
+namespace awc.WordCounter.Dictionary;
 
 public class DictionaryWordCounter: WordCounterBase
 {
