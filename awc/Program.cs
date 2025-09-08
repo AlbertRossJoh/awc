@@ -31,15 +31,13 @@ internal static class Program
         IWordCounter wordCounter = new DictionaryWordCounter();
         
         if (Parser.FlagExists(UseTrie)) wordCounter = new TrieWordCounter();
+
+        if (Parser.FlagExists(FileFlag) && (string.IsNullOrEmpty(filePath) || string.IsNullOrWhiteSpace(filePath)))
+        {
+            throw new ArgumentException("Expected valid file path");
+        }
         
-        if (!string.IsNullOrEmpty(filePath))
-        {
-            wordCounter = ReadFromFile(wordCounter, filePath);
-        }
-        else
-        {
-            wordCounter = ReadFromStdin(wordCounter);
-        }
+        wordCounter = Parser.FlagExists(FileFlag) ? ReadFromFile(wordCounter, filePath!) : ReadFromStdin(wordCounter);
 
         if (Parser.FlagExists(UniqueWords) && (Parser.FlagExists(WordCountFlag) || Parser.FlagExists(UniqueCountFlag)))
         {
