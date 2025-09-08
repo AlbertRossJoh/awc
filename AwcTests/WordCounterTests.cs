@@ -49,6 +49,7 @@ public class WordCounterTests
         
         // Assert
         Assert.Equal(7, words.Count);       
+        Assert.Distinct(words);
         Assert.Equal(["go", "do", "that", "thing", "you", "so", "well"], words);
     }
 
@@ -64,6 +65,7 @@ public class WordCounterTests
         
         // Assert
         Assert.Equal(7, words.Count);       
+        Assert.Distinct(words);
         Assert.Equal([
             new KeyValuePair<string, int>("go", 1), 
             new KeyValuePair<string, int>("do", 2), 
